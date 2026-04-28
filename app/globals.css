@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4faf5;
+  --foreground: #143623;
+  --brand-dark: #176b33;
+  --brand-mid: #2f8a3f;
+  --brand-leaf: #86c440;
+  --brand-soft: #eaf6ec;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-plus-jakarta);
+  --font-mono: var(--font-urbanist);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.section-title {
+  font-family: var(--font-urbanist), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.82), rgb(255 255 255 / 0.62));
+  backdrop-filter: blur(10px);
+}
+
+.animated-gradient {
+  background: linear-gradient(100deg, var(--brand-dark), var(--brand-mid), var(--brand-leaf), var(--brand-dark));
+  background-size: 240% 240%;
+  animation: gradientShift 8s ease infinite;
+}
+
+.brand-text {
+  color: var(--brand-dark);
+}
+
+.brand-soft-bg {
+  background-color: var(--brand-soft);
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
