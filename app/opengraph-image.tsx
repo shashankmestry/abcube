@@ -26,7 +26,8 @@ export default function Image() {
       >
         <div
           style={{
-            display: "inline-flex",
+            display: "flex",
+            alignSelf: "flex-start",
             border: "1px solid rgba(255,255,255,0.4)",
             borderRadius: "999px",
             padding: "10px 18px",
