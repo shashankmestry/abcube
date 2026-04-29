@@ -1,7 +1,23 @@
+import type { Metadata } from "next"
 import Navbar from "@/components/Navbar"
 import CTA from "@/components/CTA"
 import Footer from "@/components/Footer"
 import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description:
+    "Learn about ABCube Industries, our mission, values, and journey in building trusted home care and hygiene products across India.",
+  alternates: {
+    canonical: "/about-us"
+  },
+  openGraph: {
+    title: "About ABCube Industries",
+    description:
+      "Learn about ABCube Industries, our mission, values, and journey in building trusted home care and hygiene products across India.",
+    url: "/about-us"
+  }
+}
 
 const values = [
   {
@@ -32,8 +48,52 @@ const values = [
 ]
 
 export default function AboutUsPage() {
+  const siteUrl = "https://abcube.in"
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": `${siteUrl}/about-us#webpage`,
+        url: `${siteUrl}/about-us`,
+        name: "About ABCube Industries",
+        description:
+          "Learn about ABCube Industries, our mission, values, and journey in building trusted home care and hygiene products across India.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`
+        },
+        about: {
+          "@id": `${siteUrl}/#organization`
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "About Us",
+            item: `${siteUrl}/about-us`
+          }
+        ]
+      }
+    ]
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+        }}
+      />
       <Navbar />
 
       <section className="bg-gradient-to-b from-green-50 to-white py-16">
@@ -87,6 +147,7 @@ export default function AboutUsPage() {
               src="/catalogue/company.jpg"
               alt="Abcube company overview"
               fill
+              sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"
             />
           </div>

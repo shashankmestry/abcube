@@ -1,7 +1,23 @@
+import type { Metadata } from "next"
 import Navbar from "@/components/Navbar"
 import CTA from "@/components/CTA"
 import Footer from "@/components/Footer"
 import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "Contract Manufacturing",
+  description:
+    "Scale your cleaning brand with ABCube's private label, third-party manufacturing, bulk supply, and packaging operations.",
+  alternates: {
+    canonical: "/manufacturing"
+  },
+  openGraph: {
+    title: "Contract Manufacturing for Home Care Brands",
+    description:
+      "Scale your cleaning brand with ABCube's private label, third-party manufacturing, bulk supply, and packaging operations.",
+    url: "/manufacturing"
+  }
+}
 
 const processSteps = [
   {
@@ -59,8 +75,58 @@ const capabilities = [
 ]
 
 export default function ManufacturingPage() {
+  const siteUrl = "https://abcube.in"
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${siteUrl}/manufacturing#webpage`,
+        url: `${siteUrl}/manufacturing`,
+        name: "Contract Manufacturing for Home Care Brands",
+        description:
+          "Scale your cleaning brand with ABCube's private label, third-party manufacturing, bulk supply, and packaging operations.",
+        isPartOf: {
+          "@id": `${siteUrl}/#website`
+        }
+      },
+      {
+        "@type": "Service",
+        serviceType: "Contract Manufacturing and Private Label",
+        provider: {
+          "@id": `${siteUrl}/#organization`
+        },
+        areaServed: "IN",
+        url: `${siteUrl}/manufacturing`
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: siteUrl
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Manufacturing",
+            item: `${siteUrl}/manufacturing`
+          }
+        ]
+      }
+    ]
+  }
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData)
+        }}
+      />
       <Navbar />
       <section className="bg-gradient-to-b from-green-50 to-white py-16">
         <div className="mx-auto max-w-7xl px-4">
@@ -115,6 +181,7 @@ export default function ManufacturingPage() {
                 src="/catalogue/manufacturing.jpg"
                 alt="Abcube contract manufacturing facility"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
             </div>

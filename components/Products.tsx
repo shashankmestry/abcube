@@ -88,6 +88,7 @@ export default function Products() {
                   src={product.image}
                   alt={product.name}
                   fill
+                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
                   className="transition duration-300 group-hover:scale-[1.03]"
                 />
               </div>
