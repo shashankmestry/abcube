@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import { Plus_Jakarta_Sans, Urbanist } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 
 const siteUrl = "https://abcube.in"
+const gaMeasurementId = "G-5N62WKPX49"
 const defaultTitle = "ABCube Industries Pvt. Ltd."
 const defaultDescription =
   "ABCube Industries manufactures home care and hygiene products with private label, OEM, and contract manufacturing support across India."
@@ -138,6 +140,18 @@ export default function RootLayout({
             __html: JSON.stringify(structuredData)
           }}
         />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gaMeasurementId}');
+          `}
+        </Script>
         {children}
       </body>
     </html>
