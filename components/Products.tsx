@@ -1,10 +1,90 @@
 "use client"
+import { useEffect, useState } from "react"
 import { products } from "../lib/products"
 import Image from "next/image"
 import { motion } from "framer-motion"
 
 const headingText = "High-demand home cleaning products from our own brand catalogue"
 const headingWords = headingText.split(" ")
+
+function ProductImageCarousel({
+  images,
+  name
+}: {
+  images: string[]
+  name: string
+}) {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    if (images.length <= 1) return
+
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length)
+    }, 5000)
+
+    return () => window.clearInterval(interval)
+  }, [images.length])
+
+  const showPrevious = () => {
+    setActiveIndex((current) => (current - 1 + images.length) % images.length)
+  }
+
+  const showNext = () => {
+    setActiveIndex((current) => (current + 1) % images.length)
+  }
+
+  return (
+    <div className="relative aspect-square w-full overflow-hidden bg-gradient-to-b from-emerald-100/70 via-white to-cyan-50/50">
+      {images.map((image, index) => (
+        <Image
+          key={image}
+          src={image}
+          alt={`${name} product view ${index + 1}`}
+          fill
+          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+          className={`object-cover transition duration-500 group-hover:scale-[1.03] ${
+            index === activeIndex ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+
+      {images.length > 1 ? (
+        <>
+          <button
+            type="button"
+            onClick={showPrevious}
+            className="absolute left-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-lg font-bold text-green-900 shadow-md backdrop-blur transition hover:bg-white"
+            aria-label={`Show previous ${name} image`}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={showNext}
+            className="absolute right-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-lg font-bold text-green-900 shadow-md backdrop-blur transition hover:bg-white"
+            aria-label={`Show next ${name} image`}
+          >
+            ›
+          </button>
+          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full bg-white/80 px-2 py-1 shadow-sm backdrop-blur">
+            {images.map((image, index) => (
+              <button
+                key={`${image}-dot`}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`h-2 rounded-full transition-all ${
+                  index === activeIndex ? "w-5 bg-green-800" : "w-2 bg-green-300"
+                }`}
+                aria-label={`Show ${name} image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
+    </div>
+  )
+}
 
 export default function Products() {
   return (
@@ -83,15 +163,7 @@ export default function Products() {
               whileHover={{ y: -5 }}
               className="group glass-card overflow-hidden rounded-2xl border border-white/70 shadow-sm transition hover:shadow-2xl hover:shadow-emerald-100/70"
             >
-              <div className="relative aspect-[4/5] w-full bg-gradient-to-b from-emerald-100/70 via-white to-cyan-50/50">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                  className="transition duration-300 group-hover:scale-[1.03]"
-                />
-              </div>
+              <ProductImageCarousel images={product.gallery ?? [product.image]} name={product.name} />
               <div className="p-5">
                 <h3 className="section-title font-semibold text-slate-900">{product.name}</h3>
                 <p className="mt-2 text-sm text-slate-600">{product.description}</p>
