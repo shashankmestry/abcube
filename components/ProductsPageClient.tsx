@@ -4,8 +4,8 @@ import { useMemo, useState } from "react"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import CTA from "@/components/CTA"
-import Image from "next/image"
 import { products } from "@/lib/products"
+import ProductImageCarousel from "@/components/ProductImageCarousel"
 
 const categories = ["Floor Care", "Kitchen Care", "Washroom Care", "Hand Hygiene"]
 
@@ -85,15 +85,11 @@ export default function ProductsPageClient() {
               key={product.slug}
               className="group overflow-hidden rounded-3xl border border-green-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-100"
             >
-              <div className="relative aspect-[4/5] bg-gradient-to-b from-green-50 to-white">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                />
-              </div>
+              <ProductImageCarousel
+                images={product.gallery ?? [product.image]}
+                name={product.name}
+                // aspectClass="aspect-[4/5]"
+              />
               <div className="p-5">
                 <h2 className="section-title text-xl font-bold text-slate-900">{product.name}</h2>
                 <p className="mt-2 text-sm text-slate-600">{product.description}</p>
