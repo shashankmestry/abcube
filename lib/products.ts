@@ -33,7 +33,7 @@ export const homeProducts: Product[] = [
   {
     name: "Natural Floor Cleaner",
     category: "Floor Care",
-    slug: "natural-floor-cleaner",
+    slug: "natural-floor-cleaner-citronella",
     description:
       "Heavy-duty concentrated cleaner for commercial and home use.",
     image: "/catalogue/natural-floor-cleaner.jpg",
@@ -309,3 +309,18 @@ export const products: Product[] = [
     sizes: ["100 ml", "250 ml", "500 ml", "5 L"]
   }
 ]
+
+export function getProductBySlug(slug: string): Product | undefined {
+  return products.find((product) => product.slug === slug)
+}
+
+export function getRelatedProducts(product: Product, limit = 3): Product[] {
+  return products
+    .filter((item) => item.category === product.category && item.slug !== product.slug)
+    .slice(0, limit)
+}
+
+export function getProductImages(product: Product): string[] {
+  const images = product.gallery?.length ? product.gallery : [product.image]
+  return [...new Set(images)]
+}

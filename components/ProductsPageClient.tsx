@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import CTA from "@/components/CTA"
@@ -85,13 +86,18 @@ export default function ProductsPageClient() {
               key={product.slug}
               className="group overflow-hidden rounded-3xl border border-green-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-100"
             >
-              <ProductImageCarousel
-                images={product.gallery ?? [product.image]}
-                name={product.name}
-                // aspectClass="aspect-[4/5]"
-              />
+              <Link href={`/products/${product.slug}`} className="block">
+                <ProductImageCarousel
+                  images={product.gallery ?? [product.image]}
+                  name={product.name}
+                />
+              </Link>
               <div className="p-5">
-                <h2 className="section-title text-xl font-bold text-slate-900">{product.name}</h2>
+                <Link href={`/products/${product.slug}`}>
+                  <h2 className="section-title text-xl font-bold text-slate-900 transition group-hover:text-green-800">
+                    {product.name}
+                  </h2>
+                </Link>
                 <p className="mt-2 text-sm text-slate-600">{product.description}</p>
                 <div className="mt-4 rounded-2xl border border-green-100 bg-green-50/70 p-3">
                   <p className="text-xs font-bold uppercase tracking-[0.1em] text-green-800">Variants</p>
@@ -119,6 +125,15 @@ export default function ProductsPageClient() {
                     ))}
                   </div>
                 </div>
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="mt-4 inline-flex items-center text-sm font-semibold text-green-800 transition hover:text-green-900"
+                >
+                  View product details
+                  <span aria-hidden className="ml-1 transition group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </Link>
               </div>
             </article>
           ))}

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { products } from "@/lib/products"
 
 const siteUrl = "https://abcube.in"
 
@@ -35,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8
-    }
+    },
+    ...products.map((product) => ({
+      url: `${siteUrl}/products/${product.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7
+    }))
   ]
 }

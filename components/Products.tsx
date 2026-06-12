@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import { homeProducts } from "../lib/products"
 import { motion } from "framer-motion"
 import ProductImageCarousel from "./ProductImageCarousel"
@@ -83,9 +84,15 @@ export default function Products() {
               whileHover={{ y: -5 }}
               className="group glass-card overflow-hidden rounded-2xl border border-white/70 shadow-sm transition hover:shadow-2xl hover:shadow-emerald-100/70"
             >
-              <ProductImageCarousel images={product.gallery ?? [product.image]} name={product.name} />
+              <Link href={`/products/${product.slug}`} className="block">
+                <ProductImageCarousel images={product.gallery ?? [product.image]} name={product.name} />
+              </Link>
               <div className="p-5">
-                <h3 className="section-title font-semibold text-slate-900">{product.name}</h3>
+                <Link href={`/products/${product.slug}`}>
+                  <h3 className="section-title font-semibold text-slate-900 transition group-hover:text-green-800">
+                    {product.name}
+                  </h3>
+                </Link>
                 <p className="mt-2 text-sm text-slate-600">{product.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {product.keywords.slice(0, 2).map((tag) => (
@@ -107,6 +114,12 @@ export default function Products() {
                     {product.sizes.join(" / ")}
                   </p>
                 </div>
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="mt-4 inline-flex text-sm font-semibold text-green-800 transition hover:text-green-900"
+                >
+                  View details →
+                </Link>
               </div>
             </motion.div>
           ))}
