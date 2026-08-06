@@ -40,7 +40,7 @@ export default function CTA() {
               Request Product Catalogue
             </a>
             <a
-              href="tel:+919821804409"
+              href="tel:+919096668710"
               className="rounded-full border border-slate-400 px-6 py-3 text-sm font-semibold transition hover:border-lime-300 hover:text-lime-300"
             >
               Call for Bulk Inquiry

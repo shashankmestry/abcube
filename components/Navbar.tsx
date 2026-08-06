@@ -45,7 +45,7 @@ export default function Navbar() {
 
         <div className="hidden md:block">
           <a
-            href="tel:+919821804409"
+            href="tel:+919096668710"
             className="rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-600/30 transition hover:from-emerald-700 hover:to-teal-700"
           >
             Call Now
@@ -81,7 +81,7 @@ export default function Navbar() {
             ))}
           </ul>
           <a
-            href="tel:+919821804409"
+            href="tel:+919096668710"
             className="mt-4 block rounded-full bg-green-700 px-4 py-2 text-center text-sm font-semibold text-white"
           >
             Call Now
