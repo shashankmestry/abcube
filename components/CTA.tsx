@@ -34,7 +34,7 @@ export default function CTA() {
           </p>
           <div className="mt-7 flex flex-wrap gap-4">
             <a
-              href="mailto:shashank@abcube.in"
+              href="mailto:info@abcube.in"
               className="rounded-full bg-gradient-to-r from-green-600 to-lime-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-green-900/30 transition hover:from-green-500 hover:to-lime-400"
             >
               Request Product Catalogue
