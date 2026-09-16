@@ -53,6 +53,7 @@ export default function Footer() {
             <li><Link href="/" className="hover:text-green-800">Home</Link></li>
             <li><Link href="/about-us" className="hover:text-green-800">About Us</Link></li>
             <li><Link href="/products" className="hover:text-green-800">Products</Link></li>
+            <li><Link href="/tile-cleaner" className="hover:text-green-800">Tile Cleaner</Link></li>
             <li><Link href="/manufacturing" className="hover:text-green-800">Manufacturing</Link></li>
             <li><Link href="/contact" className="hover:text-green-800">Contact</Link></li>
           </ul>
@@ -62,6 +63,7 @@ export default function Footer() {
             Product Segments
           </p>
           <ul className="mt-3 space-y-2 text-sm text-slate-600">
+            <li>Tile &amp; Ceramic Cleaners</li>
             <li>Floor Care & Disinfectants</li>
             <li>Toilet & Washroom Cleaners</li>
             <li>Utensil & Kitchen Cleaning</li>

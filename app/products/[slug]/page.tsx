@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import ProductDetailClient from "@/components/ProductDetailClient"
-import { getProductBySlug, products } from "@/lib/products"
+import { detailPageProducts, getProductBySlug } from "@/lib/products"
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }))
+  return detailPageProducts.map((product) => ({ slug: product.slug }))
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {

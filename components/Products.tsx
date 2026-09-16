@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { homeProducts } from "../lib/products"
+import { homeProducts, productCategories, productHref } from "../lib/products"
 import { motion } from "framer-motion"
 import ProductImageCarousel from "./ProductImageCarousel"
 
@@ -49,7 +49,7 @@ export default function Products() {
             institutional hygiene segments.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            {["Floor Care", "Kitchen Care", "Washroom Care", "Hand Hygiene"].map((item) => (
+            {productCategories.map((item) => (
               <span
                 key={item}
                 className="rounded-full border-2 border-green-300 bg-white px-5 py-2 text-sm font-bold tracking-wide text-green-900 shadow-sm"
@@ -84,11 +84,11 @@ export default function Products() {
               whileHover={{ y: -5 }}
               className="group glass-card overflow-hidden rounded-2xl border border-white/70 shadow-sm transition hover:shadow-2xl hover:shadow-emerald-100/70"
             >
-              <Link href={`/products/${product.slug}`} className="block">
+              <Link href={productHref(product)} className="block">
                 <ProductImageCarousel images={product.gallery ?? [product.image]} name={product.name} />
               </Link>
               <div className="p-5">
-                <Link href={`/products/${product.slug}`}>
+                <Link href={productHref(product)}>
                   <h3 className="section-title font-semibold text-slate-900 transition group-hover:text-green-800">
                     {product.name}
                   </h3>
@@ -115,7 +115,7 @@ export default function Products() {
                   </p>
                 </div>
                 <Link
-                  href={`/products/${product.slug}`}
+                  href={productHref(product)}
                   className="mt-4 inline-flex text-sm font-semibold text-green-800 transition hover:text-green-900"
                 >
                   View details →

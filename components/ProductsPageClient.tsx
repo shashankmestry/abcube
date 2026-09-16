@@ -5,10 +5,10 @@ import Link from "next/link"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import CTA from "@/components/CTA"
-import { products } from "@/lib/products"
+import { productCategories, productHref, products } from "@/lib/products"
 import ProductImageCarousel from "@/components/ProductImageCarousel"
 
-const categories = ["Floor Care", "Kitchen Care", "Washroom Care", "Hand Hygiene"]
+const categories = productCategories
 
 export default function ProductsPageClient() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -39,8 +39,8 @@ export default function ProductsPageClient() {
             Home Cleaning Products for Retail, Distribution, and Institutional Supply
           </h1>
           <p className="mt-4 max-w-3xl text-slate-600">
-            Abcube offers a complete range of floor care, kitchen care, washroom
-            care, and hand hygiene products. Available in retail packs and bulk
+            Abcube offers a complete range of tile care, floor care, kitchen care,
+            washroom care, and hand hygiene products. Available in retail packs and bulk
             sizes with private label support.
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -61,7 +61,7 @@ export default function ProductsPageClient() {
       </section>
 
       <section className="py-14">
-        <div className="mx-auto grid max-w-7xl gap-5 px-4 md:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {categories.map((item) => (
             <button
               key={item}
@@ -86,14 +86,14 @@ export default function ProductsPageClient() {
               key={product.slug}
               className="group overflow-hidden rounded-3xl border border-green-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-100"
             >
-              <Link href={`/products/${product.slug}`} className="block">
+              <Link href={productHref(product)} className="block">
                 <ProductImageCarousel
                   images={product.gallery ?? [product.image]}
                   name={product.name}
                 />
               </Link>
               <div className="p-5">
-                <Link href={`/products/${product.slug}`}>
+                <Link href={productHref(product)}>
                   <h2 className="section-title text-xl font-bold text-slate-900 transition group-hover:text-green-800">
                     {product.name}
                   </h2>
@@ -126,10 +126,10 @@ export default function ProductsPageClient() {
                   </div>
                 </div>
                 <Link
-                  href={`/products/${product.slug}`}
+                  href={productHref(product)}
                   className="mt-4 inline-flex items-center text-sm font-semibold text-green-800 transition hover:text-green-900"
                 >
-                  View product details
+                  {product.landingPage ? "View manufacturing details" : "View product details"}
                   <span aria-hidden className="ml-1 transition group-hover:translate-x-0.5">
                     →
                   </span>

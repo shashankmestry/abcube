@@ -5,16 +5,34 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
-const links = [
+type NavLink = {
+  label: string
+  href: string
+  children?: { label: string; href: string; note?: string }[]
+}
+
+const links: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
-  { label: "Products", href: "/products" },
+  {
+    label: "Products",
+    href: "/products",
+    children: [
+      { label: "All Products", href: "/products", note: "Full catalogue" },
+      {
+        label: "Tile Cleaner",
+        href: "/tile-cleaner",
+        note: "OEM, private label & bulk"
+      }
+    ]
+  },
   { label: "Manufacturing", href: "/manufacturing" },
   { label: "Contact", href: "/contact" }
 ]
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState<string | null>(null)
 
   return (
     <header className="sticky top-0 z-50 border-b border-green-200/70 bg-white/80 backdrop-blur-xl">
@@ -32,14 +50,49 @@ export default function Navbar() {
 
         <ul className="hidden items-center gap-7 text-sm font-medium text-slate-700 md:flex">
           {links.map((link) => (
-            <motion.li key={link.href} whileHover={{ y: -2 }}>
-              <Link
-                href={link.href}
-                className="relative transition hover:text-green-800 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:rounded-full after:bg-green-700 after:transition-all hover:after:w-full"
-              >
-                {link.label}
-              </Link>
-            </motion.li>
+            <li
+              key={link.href}
+              className="relative"
+              onMouseEnter={() => setOpenMenu(link.children ? link.label : null)}
+              onMouseLeave={() => setOpenMenu(null)}
+            >
+              <motion.span whileHover={{ y: -2 }} className="inline-flex items-center gap-1">
+                <Link
+                  href={link.href}
+                  className="relative transition hover:text-green-800 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:rounded-full after:bg-green-700 after:transition-all hover:after:w-full"
+                >
+                  {link.label}
+                </Link>
+                {link.children ? (
+                  <span aria-hidden className="text-[10px] text-green-700">
+                    ▾
+                  </span>
+                ) : null}
+              </motion.span>
+
+              {link.children && openMenu === link.label ? (
+                <div className="absolute left-1/2 top-full z-50 w-60 -translate-x-1/2 pt-3">
+                  <ul className="overflow-hidden rounded-2xl border border-green-100 bg-white p-2 shadow-xl">
+                    {link.children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          className="block rounded-xl px-3 py-2.5 transition hover:bg-green-50"
+                          onClick={() => setOpenMenu(null)}
+                        >
+                          <span className="block font-semibold text-slate-900">
+                            {child.label}
+                          </span>
+                          {child.note ? (
+                            <span className="block text-xs text-slate-500">{child.note}</span>
+                          ) : null}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </li>
           ))}
         </ul>
 
@@ -77,6 +130,21 @@ export default function Navbar() {
                 >
                   {link.label}
                 </Link>
+                {link.children ? (
+                  <ul className="mt-1 ml-3 space-y-1 border-l border-green-100 pl-3">
+                    {link.children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          className="block rounded-lg px-2 py-1.5 text-sm text-slate-600 transition hover:bg-green-50 hover:text-green-800"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ul>

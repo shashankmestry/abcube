@@ -1,6 +1,13 @@
+export type ProductCategory =
+  | "Floor Care"
+  | "Tile Care"
+  | "Kitchen Care"
+  | "Washroom Care"
+  | "Hand Hygiene"
+
 export type Product = {
   name: string
-  category: "Floor Care" | "Kitchen Care" | "Washroom Care" | "Hand Hygiene"
+  category: ProductCategory
   slug: string
   description: string
   image: string
@@ -8,10 +15,49 @@ export type Product = {
   keywords: string[]
   variants: string[]
   sizes: string[]
+  /** Products with a dedicated landing page link there instead of /products/[slug] */
+  landingPage?: string
+}
+
+export const productCategories: ProductCategory[] = [
+  "Floor Care",
+  "Tile Care",
+  "Kitchen Care",
+  "Washroom Care",
+  "Hand Hygiene"
+]
+
+export const tileCleanerProduct: Product = {
+  name: "Tile Cleaner – Rapid Action",
+  category: "Tile Care",
+  slug: "tile-cleaner",
+  description:
+    "Professional tile and ceramic cleaner for ceramic, vitrified, porcelain and mosaic surfaces. Available for bulk supply, OEM and private label manufacturing.",
+  image: "/products/tile-cleaner/tile-cleaner-product-banner.jpg",
+  gallery: [
+    "/products/tile-cleaner/tile-cleaner-product-banner.jpg",
+    "/products/tile-cleaner/tile-cleaner-oem-banner.jpg"
+  ],
+  keywords: [
+    "tile cleaner",
+    "ceramic tile cleaner",
+    "vitrified tile cleaner",
+    "tile cleaning chemical",
+    "tile cleaner manufacturer",
+    "private label tile cleaner"
+  ],
+  variants: ["Rapid Action"],
+  sizes: ["200 ml", "500 ml", "1 L", "5 L", "Bulk / Customised"],
+  landingPage: "/tile-cleaner"
+}
+
+export function productHref(product: Product) {
+  return product.landingPage ?? `/products/${product.slug}`
 }
 
 /** Featured products shown on the home page */
 export const homeProducts: Product[] = [
+  tileCleanerProduct,
   {
     name: "Herbal Floor Cleaner",
     category: "Floor Care",
@@ -126,6 +172,7 @@ export const homeProducts: Product[] = [
 
 /** Full product catalogue for the /products page */
 export const products: Product[] = [
+  tileCleanerProduct,
   {
     name: "Herbal Floor Cleaner",
     category: "Floor Care",
@@ -310,14 +357,22 @@ export const products: Product[] = [
   }
 ]
 
+/** Products that use the generic /products/[slug] detail template */
+export const detailPageProducts = products.filter((product) => !product.landingPage)
+
 export function getProductBySlug(slug: string): Product | undefined {
-  return products.find((product) => product.slug === slug)
+  return detailPageProducts.find((product) => product.slug === slug)
 }
 
 export function getRelatedProducts(product: Product, limit = 3): Product[] {
-  return products
-    .filter((item) => item.category === product.category && item.slug !== product.slug)
-    .slice(0, limit)
+  const sameCategory = products.filter(
+    (item) => item.category === product.category && item.slug !== product.slug
+  )
+  const fallback = products.filter(
+    (item) => item.category !== product.category && item.slug !== product.slug
+  )
+
+  return [...sameCategory, ...fallback].slice(0, limit)
 }
 
 export function getProductImages(product: Product): string[] {

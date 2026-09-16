@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar"
 import CTA from "@/components/CTA"
 import Footer from "@/components/Footer"
 import Image from "next/image"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Contract Manufacturing",
@@ -139,12 +140,17 @@ export default function ManufacturingPage() {
           <p className="mt-4 max-w-3xl text-slate-600">
             Abcube supports startups, distributors, and established companies with
             structured third-party manufacturing and private label execution for
-            cleaning and hygiene categories.
+            cleaning and hygiene categories. If you are evaluating a specific product,
+            see our{" "}
+            <Link href="/tile-cleaner" className="font-semibold text-green-800 underline underline-offset-4">
+              Tile Cleaner manufacturing, OEM and bulk supply page
+            </Link>
+            .
           </p>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-green-200 bg-white p-4 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">Category Focus</p>
-              <p className="mt-1 text-sm font-semibold text-slate-800">Floor, Kitchen, Washroom, Hand Hygiene</p>
+              <p className="mt-1 text-sm font-semibold text-slate-800">Tile, Floor, Kitchen, Washroom, Hand Hygiene</p>
             </div>
             <div className="rounded-2xl border border-green-200 bg-white p-4 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">Execution Model</p>

@@ -1,6 +1,8 @@
 
 import type { Metadata } from "next"
 import Products from "@/components/Products"
+import TileCleanerHighlight from "@/components/TileCleanerHighlight"
+import WhatsAppFloat from "@/components/WhatsAppFloat"
 import Manufacturing from "@/components/Manufacturing"
 import WhyChooseUs from "@/components/WhyChooseUs"
 import Footer from "@/components/Footer"
@@ -66,11 +68,13 @@ export default function Home() {
       />
       <Navbar />
       <Hero />
+      <TileCleanerHighlight />
       <Products />
       <Manufacturing />
       <WhyChooseUs />
       <CTA />
       <Footer />
+      <WhatsAppFloat source="home" />
     </main>
   )
 }

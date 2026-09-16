@@ -7,9 +7,14 @@ import Footer from "@/components/Footer"
 import CTA from "@/components/CTA"
 import ProductGallery from "@/components/ProductGallery"
 import type { Product } from "@/lib/products"
-import { getProductImages, getRelatedProducts } from "@/lib/products"
+import { getProductImages, getRelatedProducts, productHref } from "@/lib/products"
 
 const categoryHighlights: Record<Product["category"], string[]> = {
+  "Tile Care": [
+    "Developed for ceramic, vitrified, porcelain and mosaic tile surfaces",
+    "Suitable for household, commercial and institutional tile maintenance",
+    "Available for bulk supply, OEM and private label manufacturing"
+  ],
   "Floor Care": [
     "Suitable for daily home and light commercial floor maintenance",
     "Developed for effective soil removal with a fresh finish",
@@ -172,7 +177,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
               {relatedProducts.map((item) => (
                 <Link
                   key={item.slug}
-                  href={`/products/${item.slug}`}
+                  href={productHref(item)}
                   className="group overflow-hidden rounded-3xl border border-green-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative aspect-square overflow-hidden">
